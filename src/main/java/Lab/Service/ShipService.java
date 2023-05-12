@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO: add the @Transactional annotation, with rollbackFor = Exception.class. This will wrap all methods in this
- * class inside of a database transaction using AOP, which will prevent incomplete updates in the event of an
- * exception being thrown. It should be assigned to rollback the transaction for any Exception, hence the rollbackFor.
- * You can test this by attempting to POST an array of ships where some ship in the JSON has a negative tonnage, then
- * attempting to get all ships. No ships should be POSTed if any ship in the array has a negative or zero
+ * TODO: Using the Transactional annotation, cause the methods of this Service class to roll back the current
+ * database transaction when the InvalidTonnageException is thrown. This will wrap all
+ * methods in this class inside of a database transaction, which will prevent incomplete updates in the event of an
+ * exception being thrown. It should be assigned to rollback the transaction for some exception, hence the rollbackFor.
+ * You can test this by attempting to persist a list of ships where some ship in the JSON has a negative tonnage, then
+ * attempting to get all ships. No ships should be persisted if any ship in the array has a negative or zero
  * tonnage - we're left to assume some form of unwanted user error in that case.
  */
 @Service
@@ -28,8 +29,7 @@ public class ShipService {
      * this is a bad way to save a list to the repository as you can just use the .saveAll method provided the table
      * has a CHECK constraint to check tonnage, but this gets the point across for the importance of @Transactional
      * @param ships transient ship entities
-     * @throws InvalidTonnageException ships can not have negative tonnage (they'd sink), containers can not have
-     * negative weight (they'd fly away)
+     * @throws InvalidTonnageException ships can not have negative tonnage (they'd sink)
      */
     public List<Ship> addListShips(List<Ship> ships) throws InvalidTonnageException {
         List<Ship> persistedShips = new ArrayList<>();

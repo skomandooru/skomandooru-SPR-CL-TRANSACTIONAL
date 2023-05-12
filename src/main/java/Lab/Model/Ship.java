@@ -28,7 +28,9 @@ public class Ship {
     //    @Column annotations actually aren't necessary. all fields will be made columns by default.
     public String name;
     public double tonnage;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JsonManagedReference
-    public List<Container> containers;
+
+    public Ship(String name, double tonnage) {
+        this.name = name;
+        this.tonnage = tonnage;
+    }
 }

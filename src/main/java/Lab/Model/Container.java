@@ -27,7 +27,9 @@ public class Container {
     //    @Column annotations actually aren't necessary. all fields will be made columns by default.
     public String contents;
     public double weight;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    public Ship ship;
+
+    public Container(String contents, double weight) {
+        this.contents = contents;
+        this.weight = weight;
+    }
 }
