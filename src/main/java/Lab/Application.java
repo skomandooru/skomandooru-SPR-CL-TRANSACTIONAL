@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * The @SpringBootApplication annotation enables automatic configuration of a Spring App.
+ * Checkout the ContainerService for implementation and ShipService for the code you need to change.
  */
 @SpringBootApplication
 public class Application {
